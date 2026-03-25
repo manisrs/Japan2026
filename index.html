@@ -2,1158 +2,230 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>🌸 Japan 2026</title>
+<meta name="theme-color" content="#1a1510">
+<title>Voyages · Mani & Family</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap');
 
   :root {
-    --ink: #1a1208;
-    --paper: #fdf8f0;
-    --cream: #f5ede0;
-    --vermillion: #c0392b;
-    --gold: #c8963e;
-    --moss: #4a6741;
-    --moss-light: #6b9463;
-    --sky: #2e6da4;
-    --muted: #8c7b6a;
-    --border: #ddd0be;
-    --card: #ffffff;
-    --shadow: rgba(26,18,8,0.10);
+    --bg: #0f0d0a; --bg2: #1a1510; --bg3: #241e16; --surface: #2e2720;
+    --border: rgba(255,220,150,0.12); --border-bright: rgba(255,220,150,0.25);
+    --gold: #d4a84b; --gold-light: #e8c76a;
+    --text: #f0e8d8; --text-muted: #9a8a72; --text-dim: #5a4e3e;
+    --radius: 16px;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; overflow-x: hidden; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-  /* HERO */
-  .hero {
-    background: linear-gradient(160deg, #1a1208 0%, #3d2510 50%, #6b3520 100%);
-    color: white; padding: 52px 20px 36px; text-align: center; position: relative; overflow: hidden;
-  }
-  .hero::before {
+  .starfield { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  .starfield::before, .starfield::after {
     content: ''; position: absolute; inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,220,150,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 45%, rgba(255,220,150,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 20%, rgba(255,220,150,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 70%, rgba(255,220,150,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 10%, rgba(255,220,150,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 55%, rgba(255,220,150,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 30%, rgba(255,220,150,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 80%, rgba(255,220,150,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 90%, rgba(255,220,150,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 5% 50%, rgba(255,220,150,0.7) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 85% 85%, rgba(255,220,150,0.6) 0%, transparent 100%),
+      radial-gradient(2px 2px at 95% 20%, rgba(255,220,150,0.5) 0%, transparent 100%),
+      radial-gradient(2px 2px at 20% 95%, rgba(255,220,150,0.5) 0%, transparent 100%);
   }
-  .hero-blossom { font-size: 42px; margin-bottom: 8px; animation: float 4s ease-in-out infinite; }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-  .hero h1 { font-family: 'Noto Serif JP', serif; font-size: 28px; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 4px; color: #fff; }
-  .hero-sub { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 300; }
-  .hero-dates { margin-top: 14px; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); border-radius: 24px; padding: 7px 18px; font-size: 13px; color: rgba(255,255,255,0.90); font-weight: 500; letter-spacing: 0.05em; }
+  .starfield::after {
+    background-image:
+      radial-gradient(1px 1px at 18% 35%, rgba(255,200,120,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 32% 75%, rgba(255,200,120,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 63% 40%, rgba(255,200,120,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 77% 65%, rgba(255,200,120,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 48% 85%, rgba(255,200,120,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 88% 45%, rgba(255,200,120,0.3) 0%, transparent 100%);
+    animation: twinkle 8s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { 0%{opacity:0.6} 100%{opacity:1} }
 
-  /* NAV */
-  .nav-tabs { position: sticky; top: 0; z-index: 100; background: var(--card); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; box-shadow: 0 2px 12px var(--shadow); }
-  .nav-tabs::-webkit-scrollbar { display: none; }
-  .nav-tab { flex: none; padding: 12px 18px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; user-select: none; }
-  .nav-tab.active { color: var(--vermillion); border-bottom-color: var(--vermillion); }
+  .page { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* SECTIONS */
-  .section { display: none; padding: 0 0 80px; }
-  .section.active { display: block; }
+  .hero { padding: 60px 28px 40px; text-align: center; }
+  .hero-emblem { width: 72px; height: 72px; background: var(--bg3); border: 1px solid var(--border-bright); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; animation: pulse-glow 4s ease-in-out infinite; }
+  @keyframes pulse-glow { 0%,100%{box-shadow:0 0 24px rgba(212,168,75,0.15)} 50%{box-shadow:0 0 40px rgba(212,168,75,0.30)} }
+  .hero-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); opacity: 0.8; margin-bottom: 12px; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1.2; color: var(--text); margin-bottom: 20px; }
+  .hero-tagline { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--text-muted); line-height: 1.7; padding: 12px 16px; border-left: 2px solid var(--gold); text-align: left; margin: 0 auto; max-width: 320px; background: rgba(212,168,75,0.04); border-radius: 0 8px 8px 0; }
+  .hero-divider { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 28px auto 0; opacity: 0.5; }
 
-  /* DAY CARDS */
-  .timeline { padding: 16px 16px 0; }
-  .day-card { background: var(--card); border-radius: 16px; margin-bottom: 14px; overflow: hidden; box-shadow: 0 2px 12px var(--shadow); border: 1px solid var(--border); transition: transform 0.15s; }
-  .day-card:active { transform: scale(0.99); }
-  .day-header { display: flex; align-items: center; gap: 12px; padding: 14px 16px 12px; cursor: pointer; }
-  .day-badge { min-width: 48px; height: 48px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; flex-shrink: 0; }
-  .day-badge .day-num { font-size: 18px; font-weight: 500; line-height: 1; }
-  .day-badge .day-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; margin-top: 1px; }
-  .day-info { flex: 1; min-width: 0; }
-  .day-date { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
-  .day-title { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 700; line-height: 1.25; margin-top: 2px; }
-  .day-city-tag { display: inline-block; margin-top: 5px; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
-  .day-chevron { font-size: 18px; color: var(--muted); transition: transform 0.3s; flex-shrink: 0; }
-  .day-card.open .day-chevron { transform: rotate(90deg); }
-  .day-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); animation: slideDown 0.25s ease; }
-  .day-card.open .day-body { display: block; }
-  @keyframes slideDown { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+  .section-label { padding: 24px 28px 12px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-  /* SCHEDULE */
-  .schedule { margin-top: 14px; }
-  .sched-item { display: flex; gap: 12px; margin-bottom: 12px; position: relative; }
-  .sched-item:not(:last-child)::after { content: ''; position: absolute; left: 26px; top: 28px; width: 1px; height: calc(100% - 4px); background: var(--border); }
-  .sched-time { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: var(--muted); min-width: 52px; padding-top: 2px; text-align: right; flex-shrink: 0; }
-  .sched-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; border: 2px solid var(--card); box-shadow: 0 0 0 1px var(--border); }
-  .sched-content { flex: 1; }
-  .sched-title { font-size: 14px; font-weight: 600; line-height: 1.3; }
-  .sched-note { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
-  .sched-tag { display: inline-block; margin-top: 5px; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .dest-list { padding: 0 20px 12px; display: flex; flex-direction: column; gap: 14px; }
 
-  /* TIP BOXES */
-  .tip-box { border-radius: 10px; padding: 11px 14px; margin-top: 12px; font-size: 13px; line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
-  .tip-box .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-  .tip-box.warn { background: #fff8e1; border-left: 3px solid var(--gold); color: #5a4010; }
-  .tip-box.info { background: #e8f4fd; border-left: 3px solid var(--sky); color: #1a3a5c; }
-  .tip-box.success { background: #edf7ed; border-left: 3px solid var(--moss); color: #213d20; }
-  .tip-box.danger { background: #fdecea; border-left: 3px solid var(--vermillion); color: #5a1010; }
+  .dest-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.2s, transform 0.15s; position: relative; }
+  .dest-card:active { transform: scale(0.99); }
+  .dest-card.active-trip { border-color: var(--gold); }
+  .dest-card.active-trip::before { content: ''; position: absolute; inset: 0; border-radius: var(--radius); background: radial-gradient(ellipse at 50% 0%, rgba(212,168,75,0.06) 0%, transparent 70%); pointer-events: none; }
+  .dest-card.placeholder { opacity: 0.45; }
 
-  /* TRAIN TICKET */
-  .train-ticket { background: linear-gradient(135deg, #1a3a5c 0%, #0f2340 100%); border-radius: 14px; padding: 14px 16px; margin-top: 10px; color: white; position: relative; overflow: hidden; }
-  .train-ticket::before { content: '🚄'; position: absolute; right: -8px; top: 50%; transform: translateY(-50%); font-size: 64px; opacity: 0.08; }
-  .train-ticket-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.65; font-weight: 600; }
-  .train-route { font-size: 17px; font-weight: 700; margin: 4px 0 2px; letter-spacing: 0.02em; }
-  .train-details { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
-  .train-detail-label { font-size: 10px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.08em; }
-  .train-detail-val { font-size: 14px; font-weight: 600; font-family: 'DM Mono', monospace; margin-top: 1px; }
-  .train-seat-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 600; font-family: 'DM Mono', monospace; margin-top: 8px; }
+  .dest-header { padding: 16px 18px 14px; display: flex; align-items: flex-start; gap: 14px; }
+  .dest-flag { width: 44px; height: 44px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .dest-meta { flex: 1; }
+  .dest-name { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .dest-dates { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-family: 'DM Mono', monospace; }
+  .dest-status { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .status-upcoming { background: rgba(212,168,75,0.15); color: var(--gold-light); border: 1px solid rgba(212,168,75,0.3); }
+  .status-active { background: rgba(106,154,90,0.15); color: #8dc97a; border: 1px solid rgba(106,154,90,0.3); }
+  .status-planned { background: rgba(90,138,180,0.12); color: #7ab4e0; border: 1px solid rgba(90,138,180,0.25); }
+  .status-completed { background: rgba(90,90,90,0.2); color: var(--text-muted); border: 1px solid rgba(90,90,90,0.3); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-  /* HOTEL CARD */
-  .hotel-card { background: linear-gradient(135deg, #2d1f0e 0%, #4a3020 100%); border-radius: 14px; padding: 14px 16px; margin-top: 10px; color: white; display: flex; gap: 14px; align-items: center; }
-  .hotel-icon { font-size: 28px; }
-  .hotel-name { font-size: 15px; font-weight: 700; }
-  .hotel-dates { font-size: 12px; opacity: 0.7; margin-top: 3px; }
-  .hotel-city { font-size: 11px; opacity: 0.55; font-family: 'DM Mono', monospace; letter-spacing: 0.08em; margin-top: 2px; }
+  .dest-links { border-top: 1px solid var(--border); display: flex; }
+  .dest-link { flex: 1; padding: 13px 12px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12px; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: background 0.15s, color 0.15s; border: none; background: transparent; font-family: 'DM Sans', sans-serif; text-decoration: none; position: relative; }
+  .dest-link:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 20%; bottom: 20%; width: 1px; background: var(--border); }
+  .dest-link:active { background: var(--surface); color: var(--gold); }
+  .dest-link.active-link { color: var(--gold); }
+  .dest-link .licon { font-size: 15px; }
+  .dest-link.disabled { opacity: 0.35; cursor: default; pointer-events: none; }
 
-  /* LUGGAGE ALERT */
-  .luggage-alert { background: linear-gradient(135deg, #3d1f00 0%, #6b3010 100%); border-radius: 14px; padding: 14px 16px; margin-top: 10px; color: white; }
-  .luggage-alert-title { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-  .luggage-alert-desc { font-size: 12px; opacity: 0.80; margin-top: 6px; line-height: 1.6; }
+  .add-dest { margin: 0 20px 14px; border: 1.5px dashed var(--border); border-radius: var(--radius); padding: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; color: var(--text-dim); font-size: 13px; font-weight: 500; }
+  .add-dest:active { background: var(--bg3); border-color: var(--border-bright); color: var(--text-muted); }
 
-  /* SECTION HEADERS */
-  .section-header { padding: 20px 16px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
-  .section-header h2 { font-family: 'Noto Serif JP', serif; font-size: 20px; font-weight: 700; }
-  .section-icon { font-size: 22px; }
-  .section-intro { padding: 14px 16px 0; font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .about-strip { margin: 0 20px 28px; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .about-icon { font-size: 20px; flex-shrink: 0; }
+  .about-text { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .about-text strong { color: var(--text); }
 
-  /* INFO CARDS */
-  .info-card { background: var(--card); border-radius: 14px; margin: 12px 16px 0; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 1px 8px var(--shadow); }
-  .info-card-row { display: flex; align-items: center; padding: 13px 16px; gap: 12px; border-bottom: 1px solid var(--border); }
-  .info-card-row:last-child { border-bottom: none; }
-  .info-row-icon { font-size: 18px; flex-shrink: 0; width: 28px; text-align: center; }
-  .info-row-content { flex: 1; }
-  .info-row-title { font-size: 14px; font-weight: 600; }
-  .info-row-sub { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
-  .info-row-badge { flex-shrink: 0; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; font-family: 'DM Mono', monospace; background: var(--cream); color: var(--ink); }
-
-  /* RESTAURANT */
-  .restaurant-city-header { padding: 16px 16px 8px; font-family: 'Noto Serif JP', serif; font-size: 15px; font-weight: 700; color: var(--vermillion); display: flex; align-items: center; gap: 8px; }
-
-  /* MODAL */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 500; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); overscroll-behavior: contain; }
-  .modal-overlay.open { display: flex; align-items: flex-end; }
-  .modal { background: var(--paper); border-radius: 24px 24px 0 0; padding: 0 0 40px; width: 100%; max-height: 90vh; overflow-y: auto; animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1); -webkit-overflow-scrolling: touch; }
-  @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-  .modal-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 12px auto 0; }
-  .modal-header { padding: 16px 20px 14px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-  .modal-title { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 700; }
-  .modal-close { width: 32px; height: 32px; border-radius: 50%; background: var(--cream); border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); }
-  .modal-body { padding: 16px 20px; }
-  .modal-body .sched-item:not(:last-child)::after { left: 31px; }
-  .modal-body .sched-time { min-width: 62px; font-size: 12px; }
-  .modal-body .sched-title { font-size: 15px; }
-  .modal-body .sched-note { font-size: 13px; }
-
-  /* FULL DETAIL BTN */
-  .full-detail-btn { display: block; width: 100%; margin-top: 14px; padding: 12px; border: 1.5px solid var(--vermillion); border-radius: 10px; background: transparent; color: var(--vermillion); font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-align: center; cursor: pointer; transition: background 0.2s, color 0.2s; }
-  .full-detail-btn:active { background: var(--vermillion); color: white; }
-
-  /* CITY COLORS */
-  .city-tokyo .day-badge { background: #fdecea; color: var(--vermillion); }
-  .city-hakone .day-badge { background: #edf7ed; color: var(--moss); }
-  .city-fuji .day-badge { background: #edf7ed; color: var(--moss); }
-  .city-nagoya .day-badge { background: #fff8e1; color: #8c5a00; }
-  .city-kyoto .day-badge { background: #f3e5f5; color: #6a1b8a; }
-  .city-hiroshima .day-badge { background: #e8f4fd; color: var(--sky); }
-  .city-osaka .day-badge { background: #fff3e0; color: #e65100; }
-  .city-tokyo .day-city-tag { background: #fdecea; color: var(--vermillion); }
-  .city-hakone .day-city-tag { background: #edf7ed; color: var(--moss); }
-  .city-fuji .day-city-tag { background: #edf7ed; color: var(--moss); }
-  .city-nagoya .day-city-tag { background: #fff8e1; color: #8c5a00; }
-  .city-kyoto .day-city-tag { background: #f3e5f5; color: #6a1b8a; }
-  .city-hiroshima .day-city-tag { background: #e8f4fd; color: var(--sky); }
-  .city-osaka .day-city-tag { background: #fff3e0; color: #e65100; }
-  .city-tokyo .sched-dot { background: var(--vermillion); }
-  .city-hakone .sched-dot, .city-fuji .sched-dot { background: var(--moss); }
-  .city-nagoya .sched-dot { background: var(--gold); }
-  .city-kyoto .sched-dot { background: #9c27b0; }
-  .city-hiroshima .sched-dot { background: var(--sky); }
-  .city-osaka .sched-dot { background: #e65100; }
-
-  /* MISC */
-  .pass-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600; color: var(--ink); margin: 4px 4px 4px 0; }
-  a { color: var(--sky); text-decoration: none; }
-  a:active { text-decoration: underline; }
-  .conf-badge { display: inline-block; background: #edf7ed; border: 1px solid #a5d6a7; border-radius: 8px; padding: 5px 12px; font-size: 12px; font-family: 'DM Mono', monospace; color: #1b5e20; margin-top: 8px; line-height: 1.5; }
+  .footer { margin-top: auto; padding: 28px 28px 48px; text-align: center; border-top: 1px solid var(--border); }
+  .footer-star { color: var(--gold); opacity: 0.5; font-size: 14px; display: block; margin-bottom: 8px; }
+  .footer-text { font-size: 11px; color: var(--text-dim); line-height: 1.7; font-family: 'DM Mono', monospace; }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-blossom">🌸</div>
-  <h1>Japan 2026</h1>
-  <div class="hero-sub">Cherry Blossom Adventure · Mani & Anandi</div>
-  <div class="hero-dates">✈️ Mar 26 → Apr 7 &nbsp;|&nbsp; 12 Days</div>
-</div>
+<div class="starfield"></div>
 
-<!-- NAV TABS -->
-<div class="nav-tabs">
-  <div class="nav-tab active" onclick="showTab('itinerary',this)">📅 Itinerary</div>
-  <div class="nav-tab" onclick="showTab('trains',this)">🚄 Trains</div>
-  <div class="nav-tab" onclick="showTab('hotels',this)">🏨 Hotels</div>
-  <div class="nav-tab" onclick="showTab('luggage',this)">🧳 Luggage</div>
-  <div class="nav-tab" onclick="showTab('food',this)">🍛 Food</div>
-</div>
+<div class="page">
 
-<!-- ══════════════════════════════════
-     ITINERARY TAB
-══════════════════════════════════ -->
-<div id="tab-itinerary" class="section active">
-
-  <div style="padding:14px 16px 0;display:flex;gap:8px;flex-wrap:wrap;">
-    <span class="pass-chip">🗼 Tokyo</span>
-    <span class="pass-chip">🏔️ Hakone · Fuji</span>
-    <span class="pass-chip">🏯 Nagoya · Kyoto</span>
-    <span class="pass-chip">⛩️ Hiroshima · Osaka</span>
+  <div class="hero">
+    <div class="hero-emblem">🧭</div>
+    <div class="hero-label">The Voyages of</div>
+    <div class="hero-title">Mani & Family</div>
+    <div class="hero-tagline">
+      "These are the voyages of Mani and Family —
+      to boldly go where many have gone before,
+      but never quite like this."
+    </div>
+    <div class="hero-divider"></div>
   </div>
 
-  <div class="timeline">
-
-    <!-- DAY 1 -->
-    <div class="day-card city-tokyo" id="day1">
-      <div class="day-header" onclick="toggleDay('day1')">
-        <div class="day-badge"><span class="day-num">1</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Friday · Mar 27</div>
-          <div class="day-title">Arrive Tokyo 🗼</div>
-          <span class="day-city-tag">📍 Tokyo — Hilton Shinjuku</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">4:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Land at Narita (NRT)</div><div class="sched-note">Depart SFO Mar 26 at 12:40 PM</div></div></div>
-          <div class="sched-item"><div class="sched-time">~6:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Narita Express (N'EX) → Shinjuku</div><div class="sched-note">~75–90 min. Reserved seats — book at station on arrival.</div></div></div>
-          <div class="sched-item"><div class="sched-time">~7:30 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Check in — Hilton Tokyo, Shinjuku</div><div class="sched-note">4-night stay (Mar 27–31)</div></div></div>
-          <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Omoide Yokocho (Memory Lane)</div><div class="sched-note">Smoky yakitori alley behind Shinjuku Station West Exit. Easy walk from hotel.</div></div></div>
-        </div>
-        <div class="tip-box danger"><span class="tip-icon">⚡</span><div><strong>TODAY'S MUST-DO CHECKLIST:</strong><br>✓ Set up <strong>Welcome Suica</strong> on both iPhones (Apple Wallet)<br>✓ Link Suica ID to <strong>Smart EX App</strong> for both Mani &amp; Anandi<br>✓ Associate all Smart EX reservations with Suica</div></div>
-        <div class="tip-box info"><span class="tip-icon">🎫</span><div>Consider buying the <strong>Fuji-Hakone Pass</strong> today or tomorrow (Mar 27–28) at Odakyu Sightseeing Service Center, Shinjuku West Exit, Ground Floor. ¥11,700/person.</div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day1')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 2 -->
-    <div class="day-card city-tokyo" id="day2">
-      <div class="day-header" onclick="toggleDay('day2')">
-        <div class="day-badge"><span class="day-num">2</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Saturday · Mar 28</div>
-          <div class="day-title">Shinjuku · Harajuku · Shibuya 🌸</div>
-          <span class="day-city-tag">📍 Tokyo</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">9:00 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Shinjuku Gyoen National Garden</div><div class="sched-note">Best cherry blossom garden in Tokyo. Go early before crowds!</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Cherry</span></div></div>
-          <div class="sched-item"><div class="sched-time">~11:30 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Meiji Shrine + Yoyogi Park</div><div class="sched-note">Serene forested shrine, then cherry blossoms in Yoyogi</div></div></div>
-          <div class="sched-item"><div class="sched-time">~2:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Harajuku — Takeshita Street</div><div class="sched-note">Street fashion, crepes, Japanese pop culture</div></div></div>
-          <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Shibuya Crossing</div><div class="sched-note">World's busiest crossing — best at dusk from the Starbucks above</div></div></div>
-        </div>
-        <div class="tip-box warn"><span class="tip-icon">🎫</span><div>If not bought yesterday: Buy <strong>Fuji-Hakone Pass</strong> at Odakyu Sightseeing Center, Shinjuku West Exit (Ground Floor, near Odakyu West Exit Gate). ¥11,700 each — or eVoucher via Klook → exchange here.</div></div>
-        <div class="tip-box info"><span class="tip-icon">🗺️</span><div><a href="https://maps.app.goo.gl/xCMef694BS7yycC3A" target="_blank">→ Google Maps route for today</a></div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day2')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 3 -->
-    <div class="day-card city-tokyo" id="day3">
-      <div class="day-header" onclick="toggleDay('day3')">
-        <div class="day-badge"><span class="day-num">3</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Sunday · Mar 29</div>
-          <div class="day-title">Kamakura Day Trip 🗿</div>
-          <span class="day-city-tag">📍 Kamakura (Day Trip)</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">8:30 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Leave Shinjuku Station</div><div class="sched-note">Shōnan–Shinjuku Line. Train going toward <strong>Zushi / Yokosuka</strong></div></div></div>
-          <div class="sched-item"><div class="sched-time">9:45 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Arrive Kamakura</div></div></div>
-          <div class="sched-item"><div class="sched-time">10:15 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Enoden → Hase Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">10:30–12:00</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Hasedera Temple + Kotoku-in (Great Buddha)</div><div class="sched-note">13m bronze Amida Buddha — you can walk inside!</div></div></div>
-          <div class="sched-item"><div class="sched-time">12:15 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Return to Kamakura Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">12:30–2:30</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Lunch + Tsurugaoka Hachimangu</div><div class="sched-note">Grand Shinto shrine lined with cherry trees</div></div></div>
-          <div class="sched-item"><div class="sched-time">3:00–4:00</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Optional stroll / Komachi Street shopping</div></div></div>
-          <div class="sched-item"><div class="sched-time">4:30 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Return train to Tokyo (~52 min)</div></div></div>
-        </div>
-        <div class="tip-box info"><span class="tip-icon">🗺️</span><div><a href="https://maps.app.goo.gl/B8GtvW3ZH9ZjAbky7" target="_blank">→ Google Maps: Kamakura route</a></div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day3')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 4 -->
-    <div class="day-card city-tokyo" id="day4">
-      <div class="day-header" onclick="toggleDay('day4')">
-        <div class="day-badge"><span class="day-num">4</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Monday · Mar 30</div>
-          <div class="day-title">Ueno · Asakusa · Skytree 🏮</div>
-          <span class="day-city-tag">📍 Tokyo</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Ueno Park</div><div class="sched-note">Tokyo's most famous blossom park — 1,000+ cherry trees!</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Cherry</span></div></div>
-          <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Sensō-ji Temple, Asakusa</div><div class="sched-note">Oldest Tokyo temple. Enter through Kaminarimon Gate. Nakamise Street for souvenirs.</div></div></div>
-          <div class="sched-item"><div class="sched-time">~3:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Sumida River Walk</div><div class="sched-note">Cherry-lined riverside promenade with Tokyo Skytree views</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Cherry</span></div></div>
-          <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Akihabara or Tokyo Skytree</div></div></div>
-        </div>
-        <div class="luggage-alert">
-          <div class="luggage-alert-title">🧳 SHIP LUGGAGE TODAY — CRITICAL</div>
-          <div class="luggage-alert-desc"><strong>Drop at Hilton Tokyo bell desk today (Mar 30)</strong><br>Ship to: Hilton Garden Inn Kyoto · Check-in date: April 2<br>Cost: ~¥2,500–3,500 per bag · Arrives Apr 2 in time for check-in</div>
-        </div>
-        <div class="tip-box info"><span class="tip-icon">🗺️</span><div><a href="https://maps.app.goo.gl/PSFkLdARa6bDPGtF8" target="_blank">→ Google Maps: Asakusa area</a></div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day4')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 5 -->
-    <div class="day-card city-hakone" id="day5">
-      <div class="day-header" onclick="toggleDay('day5')">
-        <div class="day-badge"><span class="day-num">5</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Tuesday · Mar 31</div>
-          <div class="day-title">Hakone Loop + Chureito Pagoda 🏔️</div>
-          <span class="day-city-tag">📍 Hakone → Kawaguchiko</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="train-ticket">
-          <div class="train-ticket-label">EMOT App · Login at emot-tickets.jp</div>
-          <div class="train-route">Shinjuku → Odawara</div>
-          <div class="train-details">
-            <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Hakone 41</div></div>
-            <div class="train-detail"><div class="train-detail-label">Departs</div><div class="train-detail-val">07:37</div></div>
-            <div class="train-detail"><div class="train-detail-label">Arrives</div><div class="train-detail-val">09:22</div></div>
-          </div>
-          <div class="train-seat-badge">🪑 Car 5 · Seat 8-C/D</div>
-        </div>
-        <div class="schedule" style="margin-top:14px;">
-          <div class="sched-item"><div class="sched-time">9:22 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Arrive Hakone-Yumoto Station</div><div class="sched-note">Store roller suitcases in lockers (Ground Floor). If full, use staffed baggage counter.</div></div></div>
-          <div class="sched-item"><div class="sched-time">9:45 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Bus Line H (Platform 2) → Motohakone-ko</div><div class="sched-note">35 min. Covered by Fuji-Hakone Pass.</div></div></div>
-          <div class="sched-item"><div class="sched-time">10:30 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Hakone Shrine Torii Gate</div><div class="sched-note">Floating red gate on Lake Ashi with Mt. Fuji backdrop</div></div></div>
-          <div class="sched-item"><div class="sched-time">11:15 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Pirate Ship Cruise → Togendai (30 min)</div><div class="sched-note">Stay until Togendai (end of line) for best Fuji views</div></div></div>
-          <div class="sched-item"><div class="sched-time">12:15 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Odakyu Highway Bus → Gotemba (45 min)</div></div></div>
-          <div class="sched-item"><div class="sched-time">1:30 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Fujikyu Bus → Kawaguchiko (75 min)</div></div></div>
-          <div class="sched-item"><div class="sched-time">3:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Arrive Kawaguchiko — Drop bags at Hotel Asafuji</div></div></div>
-          <div class="sched-item"><div class="sched-time">4:16 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">⛩️ Chureito Pagoda — Golden Hour</div><div class="sched-note">Fujikyu Railway → Shimoyoshida Stn (13 min), walk 15–20 min up steps. Perfect golden hour light on Fuji!</div><span class="sched-tag" style="background:#edf7ed;color:#4a6741;">⭐ Must Do</span></div></div>
-          <div class="sched-item"><div class="sched-time">7:30 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Dinner — Taj Fuji Restaurant</div><div class="sched-note">Best Indian vegetarian in Kawaguchiko. 4.8★. Paneer Butter Masala, Dal Makhani, Veggie Biryani.</div></div></div>
-          <div class="sched-item"><div class="sched-time">Late Eve</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Onsen soak at Hotel Asafuji</div><div class="sched-note">⚠️ Ask front desk NOW to pre-book 5:15 AM taxi for tomorrow's sunrise!</div></div></div>
-        </div>
-        <div class="tip-box danger"><span class="tip-icon">🚕</span><div>Book your <strong>5:15 AM taxi</strong> at check-in tonight! Taxis scarce at 5 AM. ~¥2,500 to Oishi Park. (~10 min ride)</div></div>
-        <div class="hotel-card">
-          <div class="hotel-icon">🏨</div>
-          <div class="hotel-info">
-            <div class="hotel-name">Hotel Asafuji</div>
-            <div class="hotel-dates">Check-in: Mar 31 · Check-out: Apr 1</div>
-            <div class="hotel-city">KAWAGUCHIKO · AMEX BOOKING</div>
+  <div class="section-label">Active Voyages</div>
+  <div class="dest-list">
+    <div class="dest-card active-trip">
+      <div class="dest-header">
+        <div class="dest-flag">🌸</div>
+        <div class="dest-meta">
+          <div class="dest-name">Japan 2026</div>
+          <div class="dest-dates">Mar 26 – Apr 7, 2026 · 12 days</div>
+          <div class="dest-status status-upcoming" id="japan-status">
+            <div class="status-dot"></div>
+            <span id="japan-status-text">Upcoming</span>
           </div>
         </div>
-        <button class="full-detail-btn" onclick="openModal('modal-day5')">📋 Full Hakone Details</button>
+      </div>
+      <div class="dest-links">
+        <a class="dest-link active-link" href="Japan2026-Guide.html">
+          <span class="licon">🗺️</span><span>Guide</span>
+        </a>
+        <div class="dest-link disabled">
+          <span class="licon">📓</span><span>Travel Log</span>
+        </div>
+        <div class="dest-link disabled">
+          <span class="licon">📸</span><span>Journey</span>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- DAY 6 -->
-    <div class="day-card city-fuji" id="day6">
-      <div class="day-header" onclick="toggleDay('day6')">
-        <div class="day-badge"><span class="day-num">6</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Wednesday · Apr 1</div>
-          <div class="day-title">Fuji Sunrise + Ropeway + Nagoya 🌅</div>
-          <span class="day-city-tag">📍 Fuji → Nagoya</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">5:15 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">🌅 Sunrise at Oishi Park</div><div class="sched-note">Pre-booked taxi ~10 min. Sunrise at 5:32 AM. Unobstructed Fuji reflection — before crowds and haze!</div><span class="sched-tag" style="background:#fff8e1;color:#8c5a00;">⭐ Unmissable</span></div></div>
-          <div class="sched-item"><div class="sched-time">7:30 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Breakfast at hotel + Check out</div></div></div>
-          <div class="sched-item"><div class="sched-time">9:00 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Bus from Kawaguchiko → Gotemba Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">10:30 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Odakyu Highway Bus → Togendai</div></div></div>
-          <div class="sched-item"><div class="sched-time">11:30–1:00</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Hakone Ropeway → Owakudani</div><div class="sched-note">Active sulfur vents! Try the famous black Kuro-tamago eggs. Continue ropeway to Sounzan.</div></div></div>
-          <div class="sched-item"><div class="sched-time">1:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Cable Car → Gora</div></div></div>
-          <div class="sched-item"><div class="sched-time">1:30–3:00</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Lunch in Gora + Gora Park stroll</div><div class="sched-note">Gora Brewery &amp; Grill has great veggie-friendly sides</div></div></div>
-          <div class="sched-item"><div class="sched-time">3:15 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Hakone Tozan Railway (switchback) → Hakone-Yumoto</div><div class="sched-note">Zig-zag mountain train — reverses direction 3 times!</div></div></div>
-          <div class="sched-item"><div class="sched-time">4:45 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Local train → Odawara Station (15 min)</div></div></div>
-        </div>
-        <div class="train-ticket">
-          <div class="train-ticket-label">SmartEX · Booked · Reservn #2003</div>
-          <div class="train-route">Odawara → Nagoya</div>
-          <div class="train-details">
-            <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Hikari 653</div></div>
-            <div class="train-detail"><div class="train-detail-label">Departs</div><div class="train-detail-val">18:07</div></div>
-            <div class="train-detail"><div class="train-detail-label">Arrives</div><div class="train-detail-val">19:14</div></div>
-          </div>
-          <div class="train-seat-badge">🪑 Car 9 · Seat 9-C/D</div>
-        </div>
-        <div class="hotel-card">
-          <div class="hotel-icon">🏨</div>
-          <div class="hotel-info">
-            <div class="hotel-name">Marriott Nagoya</div>
-            <div class="hotel-dates">Check-in: Apr 1 · Check-out: Apr 2</div>
-            <div class="hotel-city">NAGOYA · CHASE BOOKING · ⚠️ Cancel by Mar 31</div>
+  <div class="section-label">Future Voyages</div>
+  <div class="dest-list">
+    <div class="dest-card placeholder">
+      <div class="dest-header">
+        <div class="dest-flag">🌍</div>
+        <div class="dest-meta">
+          <div class="dest-name">Next Destination</div>
+          <div class="dest-dates">Dates TBD</div>
+          <div class="dest-status status-planned">
+            <div class="status-dot"></div>
+            <span>Planning</span>
           </div>
         </div>
-        <button class="full-detail-btn" onclick="openModal('modal-day6')">📋 Full Day Details</button>
       </div>
-    </div>
-
-    <!-- DAY 7 -->
-    <div class="day-card city-nagoya" id="day7">
-      <div class="day-header" onclick="toggleDay('day7')">
-        <div class="day-badge"><span class="day-num">7</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Thursday · Apr 2</div>
-          <div class="day-title">Ghibli Park + Arrive Kyoto 🎬</div>
-          <span class="day-city-tag">📍 Nagoya → Kyoto</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">🎬 Ghibli Park (1-Day Bus Tour from Nagoya)</div><div class="sched-note">Nagoya Subway Higashiyama Line → Fujigaoka, then Linimo (Maglev) → Ai-Chikyuhaku-Kinen-Koen Station. Booked via Viator.</div><span class="sched-tag" style="background:#fff8e1;color:#8c5a00;">🎫 Pre-booked Viator</span></div></div>
-          <div class="sched-item"><div class="sched-time">7:03 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Board Hikari 721 at Nagoya Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">7:37 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Arrive Kyoto Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">~8:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Check in — Hilton Garden Inn Kyoto</div><div class="sched-note">Luggage should already be waiting from Tokyo shipment!</div></div></div>
-        </div>
-        <div class="conf-badge">
-          📋 Viator Confirmation: <strong>1748454029</strong><br>
-          📋 Booking Reference: <strong>1365566583</strong>
-        </div>
-        <div class="train-ticket" style="margin-top:12px;">
-          <div class="train-ticket-label">SmartEX · Booked · Reservn #2004</div>
-          <div class="train-route">Nagoya → Kyoto</div>
-          <div class="train-details">
-            <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Hikari 721</div></div>
-            <div class="train-detail"><div class="train-detail-label">Departs</div><div class="train-detail-val">19:03</div></div>
-            <div class="train-detail"><div class="train-detail-label">Arrives</div><div class="train-detail-val">19:37</div></div>
-          </div>
-          <div class="train-seat-badge">🪑 Car 8 · Seat 8-C/D</div>
-        </div>
-        <div class="hotel-card">
-          <div class="hotel-icon">🏨</div>
-          <div class="hotel-info">
-            <div class="hotel-name">Hilton Garden Inn Kyoto</div>
-            <div class="hotel-dates">Check-in: Apr 2 · Check-out: Apr 5</div>
-            <div class="hotel-city">KYOTO · HILTON BOOKING · 3 NIGHTS</div>
-          </div>
-        </div>
-        <button class="full-detail-btn" onclick="openModal('modal-day7')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 8 -->
-    <div class="day-card city-kyoto" id="day8">
-      <div class="day-header" onclick="toggleDay('day8')">
-        <div class="day-badge"><span class="day-num">8</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Friday · Apr 3</div>
-          <div class="day-title">Philosopher's Path + Maruyama 🍃</div>
-          <span class="day-city-tag">📍 Kyoto</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Philosopher's Path (Tetsugaku-no-Michi)</div><div class="sched-note">1.8km canal-side path lined with hundreds of cherry trees. Walk from Ginkaku-ji end southward.</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Peak Blossom</span></div></div>
-          <div class="sched-item"><div class="sched-time">Midday</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Heian Shrine + Gardens</div><div class="sched-note">Beautiful strolling garden — cherry blossoms over the pond</div></div></div>
-          <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Maruyama Park</div><div class="sched-note">Kyoto's most beloved blossom park. Giant weeping cherry (Shidarezakura). Lit with lanterns at dusk!</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Night Blossom</span></div></div>
-          <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Gion District Night Walk</div><div class="sched-note">Hanamikoji Street — chance to spot geiko/maiko after dark</div></div></div>
-        </div>
-        <div class="tip-box success"><span class="tip-icon">🍱</span><div>Try <strong>Shojin Ryori</strong> for lunch — traditional Zen Buddhist vegetarian kaiseki. Reserve in advance. Many temples near Philosopher's Path offer it.</div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day8')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 9 -->
-    <div class="day-card city-kyoto" id="day9">
-      <div class="day-header" onclick="toggleDay('day9')">
-        <div class="day-badge"><span class="day-num">9</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Saturday · Apr 4</div>
-          <div class="day-title">Kimono · Fushimi Inari · Arashiyama 👘</div>
-          <span class="day-city-tag">📍 Kyoto</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">8:00 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">👘 Kimono Rental — Gion Area</div><div class="sched-note"><strong>Top pick: Rental Kimono Okamoto Gion</strong><br>523 Washiocho, Higashiyama Ward · +81 75-531-7890<br>Go EARLY for empty streets &amp; best photos!</div><span class="sched-tag" style="background:#f3e5f5;color:#6a1b8a;">⭐ Must Do</span></div></div>
-          <div class="sched-item"><div class="sched-time">~9:00 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Photo Route in Kimono</div><div class="sched-note">Yasaka Shrine → Hanamikoji → Ninenzaka &amp; Sannenzaka streets → Kiyomizu-dera</div></div></div>
-          <div class="sched-item"><div class="sched-time">Midday</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Fushimi Inari</div><div class="sched-note">JR Nara Line from Kyoto Station → Inari Station (5 min). Go at least 30 min up to escape crowds.</div></div></div>
-          <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Arashiyama Bamboo Grove + Tenryu-ji</div><div class="sched-note">Cherry blossoms over the temple pond</div></div></div>
-          <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Gion District</div></div></div>
-        </div>
-        <div class="luggage-alert">
-          <div class="luggage-alert-title">🧳 SHIP LUGGAGE TOMORROW MORNING (Apr 5)</div>
-          <div class="luggage-alert-desc">Before checkout: Drop bags at bell desk. Ship to: Hilton Osaka · Check-in: Apr 6 · Cost ~¥2,000–3,000/bag</div>
-        </div>
-        <div class="tip-box warn"><span class="tip-icon">📸</span><div>Add hair styling at the kimono shop — makes a huge difference in photos! Some Gion alleys have photography restrictions — respect local signs.</div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day9')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 10 -->
-    <div class="day-card city-hiroshima" id="day10">
-      <div class="day-header" onclick="toggleDay('day10')">
-        <div class="day-badge"><span class="day-num">10</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Sunday · Apr 5</div>
-          <div class="day-title">Hiroshima Peace Memorial ☮️</div>
-          <span class="day-city-tag">📍 Kyoto → Hiroshima</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Ship luggage + Check out Hilton Garden Inn</div><div class="sched-note">Bags going to Hilton Osaka. Carry small overnight bag only.</div></div></div>
-          <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Hiroshima Peace Memorial Museum</div><div class="sched-note">Allow 2+ hours. Profoundly moving. One of Japan's most important sites.</div></div></div>
-          <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">A-Bomb Dome (Genbaku Dome)</div><div class="sched-note">UNESCO World Heritage Site — preserved exactly as it was</div></div></div>
-          <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Explore Downtown Hiroshima</div></div></div>
-        </div>
-        <div class="train-ticket">
-          <div class="train-ticket-label">SmartEX · Booked · Reservn #2007</div>
-          <div class="train-route">Kyoto → Hiroshima</div>
-          <div class="train-details">
-            <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Nozomi 77</div></div>
-            <div class="train-detail"><div class="train-detail-label">Departs</div><div class="train-detail-val">18:02</div></div>
-            <div class="train-detail"><div class="train-detail-label">Arrives</div><div class="train-detail-val">19:46</div></div>
-          </div>
-          <div class="train-seat-badge">🪑 Car 8 · Seat 8-C/D</div>
-        </div>
-        <div class="tip-box info"><span class="tip-icon">🎫</span><div>Buy <strong>Visit Hiroshima Tourist Pass</strong> (¥1,000) at Hiroshima Station Tourist Info, 1F near Shinkansen North Exit. Hours: 9:30–17:30. Covers trams + Miyajima Ferry!</div></div>
-        <div class="hotel-card">
-          <div class="hotel-icon">🏨</div>
-          <div class="hotel-info">
-            <div class="hotel-name">Hilton Hiroshima</div>
-            <div class="hotel-dates">Check-in: Apr 5 · Check-out: Apr 6</div>
-            <div class="hotel-city">HIROSHIMA · HILTON BOOKING</div>
-          </div>
-        </div>
-        <button class="full-detail-btn" onclick="openModal('modal-day10')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 11 -->
-    <div class="day-card city-osaka" id="day11">
-      <div class="day-header" onclick="toggleDay('day11')">
-        <div class="day-badge"><span class="day-num">11</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Monday · Apr 6</div>
-          <div class="day-title">Miyajima Island + Osaka ⛩️</div>
-          <span class="day-city-tag">📍 Hiroshima → Osaka</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">JR Sanyo Line → Miyajimaguchi (~25 min)</div><div class="sched-note">Use Hiroshima Tourist Pass or IC Card from Hiroshima Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">JR Ferry → Miyajima Island (10 min)</div><div class="sched-note">Sacred deer roam freely! Covered by Hiroshima Tourist Pass.</div></div></div>
-          <div class="sched-item"><div class="sched-time">Mid-Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Itsukushima Shrine + Floating Torii Gate</div><div class="sched-note">Check tide times — gate "floats" at high tide. Cherry blossoms around shrine!</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Cherry</span></div></div>
-          <div class="sched-item"><div class="sched-time">Midday</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Explore Miyajima — Momijidani Park</div><div class="sched-note">Cherry blossoms + deer. Try momiji manju (maple leaf cakes).</div></div></div>
-          <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Return to Hiroshima Station</div></div></div>
-          <div class="sched-item"><div class="sched-time">Late Eve</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Arrive Osaka — Dotonbori Night Exploration</div><div class="sched-note">Neon signs, street food, Glico Man sign. Luggage already at Hilton Osaka!</div></div></div>
-        </div>
-        <div class="train-ticket">
-          <div class="train-ticket-label">SmartEX · Booked · Reservn #2008</div>
-          <div class="train-route">Hiroshima → Shin-Osaka</div>
-          <div class="train-details">
-            <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Sakura 766</div></div>
-            <div class="train-detail"><div class="train-detail-label">Departs</div><div class="train-detail-val">18:33</div></div>
-            <div class="train-detail"><div class="train-detail-label">Arrives</div><div class="train-detail-val">19:59</div></div>
-          </div>
-          <div class="train-seat-badge">🪑 Car 5 · Seat 11-A/B</div>
-        </div>
-        <div class="hotel-card">
-          <div class="hotel-icon">🏨</div>
-          <div class="hotel-info">
-            <div class="hotel-name">Hilton Osaka</div>
-            <div class="hotel-dates">Check-in: Apr 6 · Check-out: Apr 7</div>
-            <div class="hotel-city">OSAKA (UMEDA) · HILTON BOOKING</div>
-          </div>
-        </div>
-        <button class="full-detail-btn" onclick="openModal('modal-day11')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-    <!-- DAY 12 -->
-    <div class="day-card city-osaka" id="day12">
-      <div class="day-header" onclick="toggleDay('day12')">
-        <div class="day-badge"><span class="day-num">12</span><span class="day-label">DAY</span></div>
-        <div class="day-info">
-          <div class="day-date">Tuesday · Apr 7</div>
-          <div class="day-title">Osaka Castle + Departure 🏯✈️</div>
-          <span class="day-city-tag">📍 Osaka → SFO</span>
-        </div>
-        <span class="day-chevron">›</span>
-      </div>
-      <div class="day-body">
-        <div class="schedule">
-          <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Osaka Castle Park</div><div class="sched-note">Thousands of cherry trees in the castle grounds — stunning backdrop</div><span class="sched-tag" style="background:#fdecea;color:#c0392b;">🌸 Cherry</span></div></div>
-          <div class="sched-item"><div class="sched-time">~11:00 AM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Kuromon Ichiba Market</div><div class="sched-note">Osaka's kitchen. Fresh produce, street food, veggie skewers, fresh tofu.</div></div></div>
-          <div class="sched-item"><div class="sched-time">~1:00 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">Shinsaibashi Shopping</div><div class="sched-note">Last chance for souvenirs, fashion, snacks to bring home</div></div></div>
-          <div class="sched-item"><div class="sched-time">12:40 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">✈️ Depart Osaka → Tokyo Haneda</div><div class="sched-note">Arrives 1:55 PM</div></div></div>
-          <div class="sched-item"><div class="sched-time">4:20 PM</div><div class="sched-dot"></div><div class="sched-content"><div class="sched-title">✈️ Depart Tokyo Haneda → SFO</div><div class="sched-note">Arrives SFO 9:45 AM (same day — you gain time crossing the date line!)</div></div></div>
-        </div>
-        <div class="tip-box warn"><span class="tip-icon">⏰</span><div>Tokyo Monorail from Hamamatsucho → Haneda takes 40–50 min. Give yourself plenty of buffer for the connection.</div></div>
-        <button class="full-detail-btn" onclick="openModal('modal-day12')">📋 Full Day Details</button>
-      </div>
-    </div>
-
-  </div><!-- end timeline -->
-</div>
-
-<!-- ══════════════════════════════════
-     TRAINS TAB
-══════════════════════════════════ -->
-<div id="tab-trains" class="section">
-  <div class="section-header"><span class="section-icon">🚄</span><h2>Train Bookings</h2></div>
-  <div class="section-intro">All Shinkansen booked via <strong>SmartEX App</strong>. Welcome Suica linked to Smart EX for boarding. Romancecar via EMOT App.</div>
-
-  <div style="padding:16px;">
-    <div class="train-ticket" style="margin-bottom:14px;">
-      <div class="train-ticket-label">EMOT App · Mar 31 · Login: emot-tickets.jp</div>
-      <div class="train-route">Shinjuku → Odawara</div>
-      <div class="train-details">
-        <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Hakone 41</div></div>
-        <div class="train-detail"><div class="train-detail-label">Dep</div><div class="train-detail-val">07:37</div></div>
-        <div class="train-detail"><div class="train-detail-label">Arr</div><div class="train-detail-val">09:22</div></div>
-      </div>
-      <div class="train-seat-badge">🪑 Car 5 · Seat 8-C/D · Romancecar</div>
-    </div>
-
-    <div class="train-ticket" style="margin-bottom:14px;">
-      <div class="train-ticket-label">SmartEX · Apr 1 · Reservn #2003</div>
-      <div class="train-route">Odawara → Nagoya</div>
-      <div class="train-details">
-        <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Hikari 653</div></div>
-        <div class="train-detail"><div class="train-detail-label">Dep</div><div class="train-detail-val">18:07</div></div>
-        <div class="train-detail"><div class="train-detail-label">Arr</div><div class="train-detail-val">19:14</div></div>
-      </div>
-      <div class="train-seat-badge">🪑 Car 9 · Seat 9-C/D</div>
-    </div>
-
-    <div class="train-ticket" style="margin-bottom:14px;">
-      <div class="train-ticket-label">SmartEX · Apr 2 · Reservn #2004</div>
-      <div class="train-route">Nagoya → Kyoto</div>
-      <div class="train-details">
-        <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Hikari 721</div></div>
-        <div class="train-detail"><div class="train-detail-label">Dep</div><div class="train-detail-val">19:03</div></div>
-        <div class="train-detail"><div class="train-detail-label">Arr</div><div class="train-detail-val">19:37</div></div>
-      </div>
-      <div class="train-seat-badge">🪑 Car 8 · Seat 8-C/D</div>
-    </div>
-
-    <div class="train-ticket" style="margin-bottom:14px;">
-      <div class="train-ticket-label">SmartEX · Apr 5 · Reservn #2007</div>
-      <div class="train-route">Kyoto → Hiroshima</div>
-      <div class="train-details">
-        <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Nozomi 77</div></div>
-        <div class="train-detail"><div class="train-detail-label">Dep</div><div class="train-detail-val">18:02</div></div>
-        <div class="train-detail"><div class="train-detail-label">Arr</div><div class="train-detail-val">19:46</div></div>
-      </div>
-      <div class="train-seat-badge">🪑 Car 8 · Seat 8-C/D</div>
-    </div>
-
-    <div class="train-ticket" style="margin-bottom:14px;">
-      <div class="train-ticket-label">SmartEX · Apr 6 · Reservn #2008</div>
-      <div class="train-route">Hiroshima → Shin-Osaka</div>
-      <div class="train-details">
-        <div class="train-detail"><div class="train-detail-label">Train</div><div class="train-detail-val">Sakura 766</div></div>
-        <div class="train-detail"><div class="train-detail-label">Dep</div><div class="train-detail-val">18:33</div></div>
-        <div class="train-detail"><div class="train-detail-label">Arr</div><div class="train-detail-val">19:59</div></div>
-      </div>
-      <div class="train-seat-badge">🪑 Car 5 · Seat 11-A/B</div>
-    </div>
-  </div>
-
-  <div class="section-header" style="margin-top:4px;"><span class="section-icon">🎫</span><h2>Transit Passes</h2></div>
-  <div class="info-card">
-    <div class="info-card-row">
-      <div class="info-row-icon">📱</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Welcome Suica (Both iPhones)</div>
-        <div class="info-row-sub">Set up on arrival Mar 27. Apple Wallet. Both Mani &amp; Anandi. Link to Smart EX immediately.</div>
-      </div>
-      <div class="info-row-badge" style="background:#fdecea;color:#c0392b;">DAY 1</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🏔️</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Fuji-Hakone Pass</div>
-        <div class="info-row-sub">¥11,700/person. Odakyu Sightseeing Center, Shinjuku West Exit, Ground Floor. Buy Mar 27 or 28. Or eVoucher via Klook → exchange at Shinjuku. Covers buses, ropeway, pirate ship, Fujikyu Railway.</div>
-      </div>
-      <div class="info-row-badge" style="background:#edf7ed;color:#4a6741;">MAR 27–28</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">⛩️</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Visit Hiroshima Tourist Pass</div>
-        <div class="info-row-sub">¥1,000. Buy at Hiroshima Station, 1F Shinkansen Exit Tourist Info, near North Exit. Hours: 9:30–17:30. Covers all trams + Miyajima Ferry.</div>
-      </div>
-      <div class="info-row-badge" style="background:#e8f4fd;color:#2e6da4;">APR 5</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🟦</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Kyoto / Osaka — No pass needed</div>
-        <div class="info-row-sub">Use Suica (IC Card) pay-as-you-go. Maximum flexibility across JR and private lines.</div>
-      </div>
-      <div class="info-row-badge">IC CARD</div>
-    </div>
-  </div>
-  <div style="height:20px;"></div>
-</div>
-
-<!-- ══════════════════════════════════
-     HOTELS TAB
-══════════════════════════════════ -->
-<div id="tab-hotels" class="section">
-  <div class="section-header"><span class="section-icon">🏨</span><h2>Hotel Stay Dates</h2></div>
-
-  <div class="info-card">
-    <div class="info-card-row">
-      <div class="info-row-icon">🗼</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Hilton Tokyo</div>
-        <div class="info-row-sub">Mar 27 → Mar 31 (4 nights) · Shinjuku · Hilton Booking</div>
-      </div>
-      <div class="info-row-badge" style="background:#fdecea;color:#c0392b;">4 NTS</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🏔️</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Hotel Asafuji</div>
-        <div class="info-row-sub">Mar 31 → Apr 1 (1 night) · Kawaguchiko · Amex Booking<br>358 Asagawa, Fujikawaguchiko, 401-0303</div>
-      </div>
-      <div class="info-row-badge" style="background:#edf7ed;color:#4a6741;">1 NT</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🏯</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Marriott Nagoya</div>
-        <div class="info-row-sub">Apr 1 → Apr 2 (1 night) · Chase Booking<br>⚠️ Must cancel by March 31!</div>
-      </div>
-      <div class="info-row-badge" style="background:#fff8e1;color:#8c5a00;">1 NT</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🎋</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Hilton Garden Inn Kyoto</div>
-        <div class="info-row-sub">Apr 2 → Apr 5 (3 nights) · Shijo Karasuma · Hilton Booking</div>
-      </div>
-      <div class="info-row-badge" style="background:#f3e5f5;color:#6a1b8a;">3 NTS</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">☮️</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Hilton Hiroshima</div>
-        <div class="info-row-sub">Apr 5 → Apr 6 (1 night) · Hilton Booking</div>
-      </div>
-      <div class="info-row-badge" style="background:#e8f4fd;color:#2e6da4;">1 NT</div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🌆</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Hilton Osaka</div>
-        <div class="info-row-sub">Apr 6 → Apr 7 (1 night) · Umeda · Hilton Booking</div>
-      </div>
-      <div class="info-row-badge" style="background:#fff3e0;color:#e65100;">1 NT</div>
-    </div>
-  </div>
-
-  <div class="tip-box danger" style="margin:16px;">
-    <span class="tip-icon">⚠️</span>
-    <div>Marriott Nagoya must be <strong>cancelled by March 31st</strong>. Do this via Chase before leaving for Hakone!</div>
-  </div>
-
-  <div class="section-header" style="margin-top:4px;"><span class="section-icon">🎬</span><h2>Ghibli Park Booking</h2></div>
-  <div class="info-card">
-    <div class="info-card-row">
-      <div class="info-row-icon">🎫</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Ghibli Park 1-Day Bus Tour · Apr 2</div>
-        <div class="info-row-sub">Booked via Viator · From Nagoya<br>Confirmation: <strong>1748454029</strong><br>Booking Ref: <strong>1365566583</strong></div>
-      </div>
-      <div class="info-row-badge" style="background:#fff8e1;color:#8c5a00;">APR 2</div>
-    </div>
-  </div>
-  <div style="height:20px;"></div>
-</div>
-
-<!-- ══════════════════════════════════
-     LUGGAGE TAB
-══════════════════════════════════ -->
-<div id="tab-luggage" class="section">
-  <div class="section-header"><span class="section-icon">🧳</span><h2>Luggage Forwarding</h2></div>
-  <div class="section-intro">Use <strong>TA-Q-BIN (Yamato Transport)</strong> — look for the "Black Cat" logo. Drop at hotel bell desk or concierge. Travel hands-free!</div>
-
-  <div style="padding:16px;">
-    <div class="luggage-alert" style="margin-bottom:14px;">
-      <div class="luggage-alert-title">📦 Shipment 1 — Drop on Mar 30</div>
-      <div class="luggage-alert-desc">
-        <strong>From:</strong> Hilton Tokyo (bell desk)<br>
-        <strong>To:</strong> Hilton Garden Inn Kyoto<br>
-        <strong>Check-in date to write:</strong> April 2<br>
-        <strong>Arrives:</strong> Apr 2 (next day)<br>
-        <strong>Cost:</strong> ~¥2,500–3,500 per bag<br>
-        <strong>Why:</strong> Travel hands-free through Hakone Ropeway, Pirate Ship, buses, and Nagoya transfer
-      </div>
-    </div>
-
-    <div class="luggage-alert">
-      <div class="luggage-alert-title">📦 Shipment 2 — Drop on Apr 5 (morning)</div>
-      <div class="luggage-alert-desc">
-        <strong>From:</strong> Hilton Garden Inn Kyoto (bell desk)<br>
-        <strong>To:</strong> Hilton Osaka<br>
-        <strong>Check-in date to write:</strong> April 6<br>
-        <strong>Arrives:</strong> Apr 6 (next day, or same-day possible)<br>
-        <strong>Cost:</strong> ~¥2,000–3,000 per bag<br>
-        <strong>Why:</strong> Hands-free for Hiroshima + Miyajima Island ferry
+      <div class="dest-links">
+        <div class="dest-link disabled"><span class="licon">🗺️</span><span>Guide</span></div>
+        <div class="dest-link disabled"><span class="licon">📓</span><span>Travel Log</span></div>
+        <div class="dest-link disabled"><span class="licon">📸</span><span>Journey</span></div>
       </div>
     </div>
   </div>
 
-  <div class="info-card" style="margin:0 16px;">
-    <div class="info-card-row">
-      <div class="info-row-icon">📋</div>
-      <div class="info-row-content">
-        <div class="info-row-title">How to ship</div>
-        <div class="info-row-sub">Go to hotel bell desk. Give next hotel name + check-in date. Staff fills out the waybill. Pay at desk or charge to room.</div>
-      </div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">🎒</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Overnight bag for Hakone → Nagoya (Mar 31–Apr 2)</div>
-        <div class="info-row-sub">Pack light: 2 shirts, socks, underwear, sleepwear, minimal toiletries, medications. Keep under 7–8 lbs. Your main bags will be in Kyoto waiting.</div>
-      </div>
-    </div>
-    <div class="info-card-row">
-      <div class="info-row-icon">⚖️</div>
-      <div class="info-row-content">
-        <div class="info-row-title">Shinkansen Luggage Rule</div>
-        <div class="info-row-sub">Bags over 160cm total dimensions must be reserved in the "Oversized Baggage Area" at the back of the car. Mandatory on Tokaido/Sanyo Shinkansen.</div>
-      </div>
+  <div class="add-dest" onclick="this.textContent='Coming soon! 🚀'">
+    <span style="font-size:18px;opacity:0.5;">＋</span>
+    <span>Add a new voyage</span>
+  </div>
+
+  <div class="about-strip">
+    <div class="about-icon">🛸</div>
+    <div class="about-text">
+      <strong>Voyager PWA</strong> — Each destination has a <strong>Guide</strong> (day-by-day itinerary), <strong>Travel Log</strong> (notes & memories), and <strong>Journey</strong> (photos & moments). Expand as you explore.
     </div>
   </div>
-  <div style="height:20px;"></div>
-</div>
 
-<!-- ══════════════════════════════════
-     FOOD TAB
-══════════════════════════════════ -->
-<div id="tab-food" class="section">
-  <div class="section-header"><span class="section-icon">🍛</span><h2>Vegetarian Restaurants</h2></div>
-  <div class="section-intro">Focus: Indian vegetarian + Shojin Ryori (Zen Buddhist cuisine). Use <strong>HappyCow</strong> or <strong>Vegewel</strong> apps for live searches on the go.</div>
-
-  <div class="restaurant-city-header">🗼 Tokyo</div>
-  <div class="info-card" style="margin:0 16px;">
-    <div class="info-card-row"><div class="info-row-icon">⭐</div><div class="info-row-content"><div class="info-row-title">Veg Kitchen Natraj</div><div class="info-row-sub">100% vegetarian, Jain options · Central Tokyo (Minato/Ginza area)</div></div></div>
-    <div class="info-card-row"><div class="info-row-icon">⭐</div><div class="info-row-content"><div class="info-row-title">Veg Herb Saga</div><div class="info-row-sub">Highly recommended dedicated vegetarian · Near Ueno</div></div></div>
-    <div class="info-card-row"><div class="info-row-icon">🌶️</div><div class="info-row-content"><div class="info-row-title">Andhra Dining</div><div class="info-row-sub">South Indian, extensive vegetarian · Ginza area</div></div></div>
-    <div class="info-card-row"><div class="info-row-icon">🌶️</div><div class="info-row-content"><div class="info-row-title">Dhaba India</div><div class="info-row-sub">South Indian, excellent vegetarian dishes · Central Tokyo</div></div></div>
-    <div class="info-card-row"><div class="info-row-icon">🍕</div><div class="info-row-content"><div class="info-row-title">The Seirinkan (Italian Pizza)</div><div class="info-row-sub">Highly rated · 155m from Naka-Meguro Station · <a href="https://theseirinkan.com" target="_blank">theseirinkan.com</a></div></div></div>
-  </div>
-
-  <div class="restaurant-city-header">🏔️ Kawaguchiko (Fuji)</div>
-  <div class="info-card" style="margin:0 16px;">
-    <div class="info-card-row"><div class="info-row-icon">🥇</div><div class="info-row-content"><div class="info-row-title">Taj Fuji ⭐ TOP PICK</div><div class="info-row-sub">4.8–4.9★. Paneer Butter Masala, Dal Makhani, Veggie Biryani. Best vegetarian dining near Hotel Asafuji.</div></div></div>
-    <div class="info-card-row"><div class="info-row-icon">🍲</div><div class="info-row-content"><div class="info-row-title">Houtou Fudou</div><div class="info-row-sub">Local Houtou noodles (ask for vegetarian version) · Near Kawaguchiko Station</div></div></div>
-  </div>
-
-  <div class="restaurant-city-header">🎋 Kyoto</div>
-  <div class="info-card" style="margin:0 16px;">
-    <div class="info-card-row"><div class="info-row-icon">⭐</div><div class="info-row-content"><div class="info-row-title">Shojin Ryori (Temple Cuisine)</div><div class="info-row-sub">Traditional Zen Buddhist vegetarian kaiseki. Widely available near temples. The essential Kyoto vegetarian experience — reserve in advance.</div></div></div>
-    <div class="info-card-row"><div class="info-row-icon">🍛</div><div class="info-row-content"><div class="info-row-title">Shama Vegetarian Indian Restaurant</div><div class="info-row-sub">Fully vegetarian · multiple curry sets · Kyoto city center</div></div></div>
-  </div>
-
-  <div class="restaurant-city-header">⛩️ Hiroshima</div>
-  <div class="info-card" style="margin:0 16px;">
-    <div class="info-card-row"><div class="info-row-icon">🌶️</div><div class="info-row-content"><div class="info-row-title">Indian Vegetarian Restaurants</div><div class="info-row-sub">Several options near Peace Park in central Hiroshima. Search HappyCow on arrival for current picks.</div></div></div>
-  </div>
-
-  <div class="restaurant-city-header">🌆 Osaka</div>
-  <div class="info-card" style="margin:0 16px;">
-    <div class="info-card-row"><div class="info-row-icon">⭐</div><div class="info-row-content"><div class="info-row-title">Indian Restaurant Shama Osaka</div><div class="info-row-sub">Pure vegetarian · extensive vegan options · near Dotonbori area</div></div></div>
-  </div>
-
-  <div class="tip-box success" style="margin:16px;">
-    <span class="tip-icon">💬</span>
-    <div>Say: <strong>"Watashi wa bejitarian desu"</strong> (私はベジタリアンです) — "I am vegetarian." For stricter: <strong>"Tamago mo niku mo sakana mo tabemasen"</strong> (no egg, meat, or fish).</div>
-  </div>
-  <div style="height:20px;"></div>
-</div>
-
-<!-- ══════════════════════════════════
-     MODALS
-══════════════════════════════════ -->
-
-<div id="modal-day1" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day1')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 1 — Arrive Tokyo</div><button class="modal-close" onclick="closeModal('modal-day1')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Mar 26</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Depart SFO 12:40 PM</div></div></div>
-        <div class="sched-item"><div class="sched-time">Mar 27 4PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Land at Narita (NRT)</div><div class="sched-note">Immigration, Customs, collect bags</div></div></div>
-        <div class="sched-item"><div class="sched-time">~5:30 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Narita Express (N'EX) → Shinjuku</div><div class="sched-note">~75–90 min. Buy at station ticket counter, all seats reserved.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~7:00 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Check in — Hilton Tokyo, Shinjuku</div><div class="sched-note">4 nights (Mar 27–31). Hilton Booking.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Omoide Yokocho (Memory Lane)</div><div class="sched-note">Tiny smoky alley behind Shinjuku Station West Exit. Charcoal yakitori, izakaya atmosphere. Easy 5-min walk from Hilton.</div></div></div>
-      </div>
-      <div class="tip-box danger"><span class="tip-icon">⚡</span><div><strong>TODAY'S CHECKLIST:</strong><br>✓ Welcome Suica on both iPhones (Apple Wallet)<br>✓ Link both Suica IDs to Smart EX App<br>✓ Associate all Smart EX train reservations with Suica<br>✓ Consider buying Fuji-Hakone Pass today if energy allows</div></div>
+  <div class="footer">
+    <span class="footer-star">✦</span>
+    <div class="footer-text">
+      Voyages · Mani & Family<br>
+      Built with 🌸 for the road ahead
     </div>
   </div>
-</div>
 
-<div id="modal-day2" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day2')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 2 — Tokyo Cherry Blossoms</div><button class="modal-close" onclick="closeModal('modal-day2')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">9:00 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Shinjuku Gyoen National Garden</div><div class="sched-note">Multiple cherry varieties, 1,000+ trees. Go early before weekend crowds. Entrance ¥500.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~11:30 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Meiji Shrine</div><div class="sched-note">70-hectare forested shrine. Peaceful contrast to city. Adjacent Yoyogi Park for cherry blossoms + picnic atmosphere.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~2:00 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Harajuku — Takeshita Street</div><div class="sched-note">Colorful street fashion, crepes, candy floss, pop culture shops.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Shibuya Crossing</div><div class="sched-note">Best viewed from Starbucks 2F above the crossing, or from Shibuya Sky observation deck.</div></div></div>
-      </div>
-      <div class="tip-box warn"><span class="tip-icon">🎫</span><div>Buy <strong>Fuji-Hakone Pass</strong> today if not yesterday. Odakyu Sightseeing Service Center, Shinjuku West Exit, 1F near Odakyu West Exit Gate. ¥11,700 per person. Or eVoucher via Klook → exchange here.</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day3" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day3')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 3 — Kamakura Day Trip</div><button class="modal-close" onclick="closeModal('modal-day3')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">8:30 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Shinjuku Station → Kamakura</div><div class="sched-note">Shōnan–Shinjuku Line. <strong>Must be going toward Zushi / Yokosuka direction.</strong> ~75 min.</div></div></div>
-        <div class="sched-item"><div class="sched-time">9:45 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Arrive Kamakura Station</div></div></div>
-        <div class="sched-item"><div class="sched-time">10:15 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Enoden → Hase Station</div><div class="sched-note">Small scenic tram along the coast. 2 stops from Kamakura.</div></div></div>
-        <div class="sched-item"><div class="sched-time">10:30 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Hasedera Temple</div><div class="sched-note">Hilltop temple with ocean views. 11-headed Kannon goddess statue.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~11:30 AM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Kotoku-in — Great Buddha</div><div class="sched-note">13.35m bronze Amida Buddha. You can walk inside the hollow statue!</div></div></div>
-        <div class="sched-item"><div class="sched-time">12:15 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Return to Kamakura Station</div></div></div>
-        <div class="sched-item"><div class="sched-time">12:30–2:30</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Lunch + Tsurugaoka Hachimangu</div><div class="sched-note">Grand Shinto shrine at the end of a long cherry-tree-lined avenue. Central Kamakura.</div></div></div>
-        <div class="sched-item"><div class="sched-time">3:00–4:00</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Komachi Street shopping</div><div class="sched-note">1km pedestrian street with crafts, snacks, souvenirs</div></div></div>
-        <div class="sched-item"><div class="sched-time">4:30 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Return to Tokyo (~52 min)</div></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day4" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day4')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 4 — Ueno & Asakusa</div><button class="modal-close" onclick="closeModal('modal-day4')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Ueno Park</div><div class="sched-note">Tokyo's most famous cherry blossom spot. Over 1,000 trees including the famous row along the main path. Ueno Zoo inside if interested.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Sensō-ji Temple, Asakusa</div><div class="sched-note">Tokyo's oldest/largest temple. Enter through Kaminarimon (Thunder Gate). Nakamise Street for souvenirs — good deals here!</div></div></div>
-        <div class="sched-item"><div class="sched-time">~3:00 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Sumida River Cherry Walk</div><div class="sched-note">Riverside promenade lined with cherry trees. Tokyo Skytree in background — great photos.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot" style="background:var(--vermillion);"></div><div class="sched-content"><div class="sched-title">Akihabara or Tokyo Skytree</div><div class="sched-note">Akihabara: anime, electronics, gaming. Skytree: 634m observation deck (book ahead!).</div></div></div>
-      </div>
-      <div class="luggage-alert">
-        <div class="luggage-alert-title">🧳 SHIP LUGGAGE TODAY — DON'T FORGET!</div>
-        <div class="luggage-alert-desc">Drop at Hilton Tokyo bell desk before leaving the hotel this morning. Destination: Hilton Garden Inn Kyoto. Check-in date: April 2. Bags arrive in Kyoto on Apr 2 just in time!</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day5" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day5')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 5 — Hakone Grand Circuit</div><button class="modal-close" onclick="closeModal('modal-day5')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">7:37 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Hakone 41 Romancecar from Shinjuku</div><div class="sched-note">EMOT App. Car 5, Seat 8-C/D. Scenic observation car — look for Fuji on right side!</div></div></div>
-        <div class="sched-item"><div class="sched-time">9:22 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Arrive Hakone-Yumoto</div><div class="sched-note">Store suitcases in Ground Floor lockers. If full: use staffed baggage counter right next to them.</div></div></div>
-        <div class="sched-item"><div class="sched-time">9:45 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Bus Line H (Platform 2) → Motohakone-ko (35 min)</div><div class="sched-note">Covered by Fuji-Hakone Pass</div></div></div>
-        <div class="sched-item"><div class="sched-time">10:30 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Hakone Shrine Torii Gate</div><div class="sched-note">The famous red floating gate in Lake Ashi. Fuji visible on clear days. Allow 30–45 min.</div></div></div>
-        <div class="sched-item"><div class="sched-time">11:15 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Pirate Ship Cruise → Togendai (30 min)</div><div class="sched-note">Stay on till Togendai (end). Best Fuji views from the deck. Covered by Pass.</div></div></div>
-        <div class="sched-item"><div class="sched-time">12:15 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Odakyu Highway Bus → Gotemba (45 min)</div></div></div>
-        <div class="sched-item"><div class="sched-time">1:30 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Fujikyu Bus → Kawaguchiko Station (75 min)</div></div></div>
-        <div class="sched-item"><div class="sched-time">3:00 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Drop bags at Hotel Asafuji</div><div class="sched-note">Use hotel shuttle or short taxi from station</div></div></div>
-        <div class="sched-item"><div class="sched-time">4:16 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">⛩️ Chureito Pagoda</div><div class="sched-note">Fujikyu Railway → Shimoyoshida Station (13 min). Walk up 15–20 min. Perfect golden hour light on Fuji with cherry blossoms in foreground!</div></div></div>
-        <div class="sched-item"><div class="sched-time">7:30 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Dinner — Taj Fuji Restaurant</div><div class="sched-note">4.8★ Indian vegetarian. Paneer Butter Masala, Dal Makhani, Veggie Biryani. Superior to Aladdin restaurant.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Late Eve</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Onsen at Hotel Asafuji</div><div class="sched-note">⚠️ Ask front desk NOW to book 5:15 AM taxi for sunrise!</div></div></div>
-      </div>
-      <div class="tip-box success"><span class="tip-icon">🎫</span><div>The <strong>3-Day Fuji-Hakone Pass</strong> covers every leg of today's circuit. Saves ~¥3,000–4,000 vs individual tickets.</div></div>
-      <div class="tip-box danger"><span class="tip-icon">🚕</span><div><strong>Book your 5:15 AM taxi tonight at check-in!</strong> Locker strategy: if lockers at Hakone-Yumoto are full, use the staffed baggage counter right next to them.</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day6" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day6')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 6 — Fuji Sunrise + Nagoya</div><button class="modal-close" onclick="closeModal('modal-day6')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">5:15 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Pre-booked taxi → Oishi Park (~10 min, ~¥2,500)</div><div class="sched-note">Sunrise at 5:32 AM. Oishi Park: unobstructed Fuji reflection across the water — before crowds and haze. "Diamond Fuji" or early morning reflection.</div></div></div>
-        <div class="sched-item"><div class="sched-time">7:30 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Breakfast at hotel + Check out</div></div></div>
-        <div class="sched-item"><div class="sched-time">9:00 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Bus from Kawaguchiko → Gotemba Station</div></div></div>
-        <div class="sched-item"><div class="sched-time">10:30 AM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Odakyu Highway Bus → Togendai</div></div></div>
-        <div class="sched-item"><div class="sched-time">11:30–1:00</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Hakone Ropeway → Owakudani</div><div class="sched-note">Active sulfur vents! Try Kuro-tamago (black eggs boiled in sulfur). Continue ropeway to Sounzan.</div></div></div>
-        <div class="sched-item"><div class="sched-time">1:00 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Cable Car → Gora</div></div></div>
-        <div class="sched-item"><div class="sched-time">1:30–3:00</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Lunch in Gora + Gora Park stroll</div><div class="sched-note">Gora Brewery &amp; Grill — good veggie-friendly options</div></div></div>
-        <div class="sched-item"><div class="sched-time">3:15 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Hakone Tozan Railway → Hakone-Yumoto</div><div class="sched-note">Zig-zag switchback train — reverses 3 times going down!</div></div></div>
-        <div class="sched-item"><div class="sched-time">4:20 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Arrive Hakone-Yumoto · Retrieve suitcases</div></div></div>
-        <div class="sched-item"><div class="sched-time">4:45 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Local train → Odawara Station (15 min)</div></div></div>
-        <div class="sched-item"><div class="sched-time">6:07 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Hikari 653 from Odawara → Nagoya</div><div class="sched-note">Car 9, Seat 9-C/D. Reservn #2003.</div></div></div>
-        <div class="sched-item"><div class="sched-time">7:17 PM</div><div class="sched-dot" style="background:var(--moss);"></div><div class="sched-content"><div class="sched-title">Arrive Nagoya · Check in Marriott</div></div></div>
-      </div>
-      <div class="tip-box warn"><span class="tip-icon">🌡️</span><div>5°C colder near Fuji than Tokyo — bring layers! Clear weather Mar 31/Apr 1 = perfect snow-capped Fuji views.</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day7" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day7')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 7 — Ghibli Park + Kyoto</div><button class="modal-close" onclick="closeModal('modal-day7')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:var(--gold);"></div><div class="sched-content"><div class="sched-title">Ghibli Park (1-Day Bus Tour from Nagoya)</div><div class="sched-note">Nagoya Subway Higashiyama Line → Fujigaoka Station, then Linimo (Maglev) → Ai-Chikyuhaku-Kinen-Koen Station (~35 min).<br><strong>Conf: 1748454029 · Ref: 1365566583</strong></div></div></div>
-        <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot" style="background:var(--gold);"></div><div class="sched-content"><div class="sched-title">Return to Nagoya Station</div></div></div>
-        <div class="sched-item"><div class="sched-time">7:03 PM</div><div class="sched-dot" style="background:var(--gold);"></div><div class="sched-content"><div class="sched-title">Hikari 721 → Kyoto (Car 8, 8-C/D)</div><div class="sched-note">Reservn #2004. ~34 min journey.</div></div></div>
-        <div class="sched-item"><div class="sched-time">7:37 PM</div><div class="sched-dot" style="background:var(--gold);"></div><div class="sched-content"><div class="sched-title">Arrive Kyoto Station</div></div></div>
-        <div class="sched-item"><div class="sched-time">~8:00 PM</div><div class="sched-dot" style="background:var(--gold);"></div><div class="sched-content"><div class="sched-title">Check in — Hilton Garden Inn Kyoto</div><div class="sched-note">Luggage already here from Tokyo shipment! 3-night stay.</div></div></div>
-      </div>
-      <div class="tip-box warn"><span class="tip-icon">⚠️</span><div>Cancel Marriott Nagoya via Chase before today's Shinkansen departure — deadline is March 31!</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day8" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day8')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 8 — Kyoto Paths & Parks</div><button class="modal-close" onclick="closeModal('modal-day8')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Philosopher's Path (Tetsugaku-no-Michi)</div><div class="sched-note">1.8km stone canal-side path. Hundreds of cherry trees in full bloom. Start from Ginkaku-ji (Silver Pavilion) end, walk south.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Midday</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Heian Shrine + Garden</div><div class="sched-note">Large Heian-period shrine. The strolling garden has cherry blossoms reflected in the pond — stunning!</div></div></div>
-        <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Maruyama Park</div><div class="sched-note">Kyoto's most beloved park. The giant weeping Shidarezakura cherry tree is iconic. Paper lanterns lit at dusk — magical atmosphere.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Gion Night Walk</div><div class="sched-note">Hanamikoji Street. Best chance to spot geiko/maiko after 6 PM.</div></div></div>
-      </div>
-      <div class="tip-box success"><span class="tip-icon">🍱</span><div>Try <strong>Shojin Ryori</strong> for lunch — Zen Buddhist vegetarian kaiseki, multiple courses. Reserve in advance. Many temples near Philosopher's Path offer it.</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day9" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day9')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 9 — Kimono + Fushimi + Arashiyama</div><button class="modal-close" onclick="closeModal('modal-day9')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">8:00 AM</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">👘 Kimono Rental — Gion (Higashiyama)</div><div class="sched-note"><strong>Rental Kimono Okamoto Gion Shop</strong><br>523 Washiocho, Higashiyama Ward<br>📞 +81 75-531-7890<br>Go EARLY (8–9 AM) for empty streets and best photos!</div></div></div>
-        <div class="sched-item"><div class="sched-time">~9:00 AM</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Photo Route in Kimono</div><div class="sched-note">Yasaka Shrine → Hanamikoji (Gion) → Ninenzaka &amp; Sannenzaka streets → Kiyomizu-dera. All within 20-min walking — no transport needed!</div></div></div>
-        <div class="sched-item"><div class="sched-time">Midday</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Fushimi Inari</div><div class="sched-note">JR Nara Line from Kyoto Station → Inari Station (5 min). Walk at least 30 min up for fewer crowds. Thousands of orange torii gates!</div></div></div>
-        <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Arashiyama Bamboo Grove</div><div class="sched-note">Best in early afternoon. Tenryu-ji Temple garden — cherry blossoms over the pond.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Evening</div><div class="sched-dot" style="background:#9c27b0;"></div><div class="sched-content"><div class="sched-title">Gion District</div></div></div>
-      </div>
-      <div class="luggage-alert">
-        <div class="luggage-alert-title">🧳 SHIP LUGGAGE TOMORROW MORNING (Apr 5)</div>
-        <div class="luggage-alert-desc">Before Apr 5 checkout: drop bags at Hilton Garden Inn Kyoto bell desk. To: Hilton Osaka. Check-in date: April 6.</div>
-      </div>
-      <div class="tip-box warn"><span class="tip-icon">📸</span><div>Add hair styling at the shop — huge difference in photos! Some Gion alleys restricted — respect the signage.</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day10" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day10')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 10 — Hiroshima</div><button class="modal-close" onclick="closeModal('modal-day10')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:var(--sky);"></div><div class="sched-content"><div class="sched-title">Ship luggage + Check out Hilton Garden Inn</div><div class="sched-note">Carry only small overnight bag to Hiroshima. Bags going to Hilton Osaka (arrives Apr 6).</div></div></div>
-        <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot" style="background:var(--sky);"></div><div class="sched-content"><div class="sched-title">Hiroshima Peace Memorial Museum</div><div class="sched-note">Allow 2+ hours. One of the world's most important museums. Photography allowed in most areas. Deeply moving.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Afternoon</div><div class="sched-dot" style="background:var(--sky);"></div><div class="sched-content"><div class="sched-title">A-Bomb Dome (Genbaku Dome)</div><div class="sched-note">UNESCO World Heritage Site. The former Industrial Promotion Hall preserved exactly as it was in 1945.</div></div></div>
-        <div class="sched-item"><div class="sched-time">18:02</div><div class="sched-dot" style="background:var(--sky);"></div><div class="sched-content"><div class="sched-title">Nozomi 77 → Hiroshima (Car 8, 8-C/D)</div><div class="sched-note">Reservn #2007. Arrives 19:46.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~20:00</div><div class="sched-dot" style="background:var(--sky);"></div><div class="sched-content"><div class="sched-title">Check in Hilton Hiroshima</div><div class="sched-note">Buy Hiroshima Tourist Pass at station before leaving (Tourist Info, 1F Shinkansen Exit North, 9:30–17:30).</div></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day11" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day11')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 11 — Miyajima + Osaka</div><button class="modal-close" onclick="closeModal('modal-day11')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">JR Sanyo Line → Miyajimaguchi (~25 min)</div><div class="sched-note">From Hiroshima Station. Use Hiroshima Tourist Pass or IC Card.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">JR Ferry → Miyajima Island (10 min)</div><div class="sched-note">Sacred deer roam freely on the island! Covered by Hiroshima Tourist Pass.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Mid-Morning</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Itsukushima Shrine + Floating Torii Gate</div><div class="sched-note">Check tide times — gate "floats" at high tide. Cherry blossoms around the shrine.</div></div></div>
-        <div class="sched-item"><div class="sched-time">Midday</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Momijidani Park + explore island</div><div class="sched-note">Cherry blossoms + deer. Try momiji manju (maple leaf cakes — ask for vegetarian filling).</div></div></div>
-        <div class="sched-item"><div class="sched-time">~5:00 PM</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Return to Hiroshima Station</div></div></div>
-        <div class="sched-item"><div class="sched-time">18:33</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Sakura 766 → Shin-Osaka (Car 5, Seat 11-A/B)</div><div class="sched-note">Reservn #2008. Arrives 19:59.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~20:30</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Arrive Hilton Osaka (Umeda)</div><div class="sched-note">Luggage already here from Kyoto shipment! Explore Dotonbori if energy allows.</div></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="modal-day12" class="modal-overlay" onclick="closeModalOnBg(event,'modal-day12')">
-  <div class="modal"><div class="modal-handle"></div>
-    <div class="modal-header"><div class="modal-title">Day 12 — Osaka + Departure</div><button class="modal-close" onclick="closeModal('modal-day12')">✕</button></div>
-    <div class="modal-body">
-      <div class="schedule">
-        <div class="sched-item"><div class="sched-time">Morning</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Osaka Castle Park</div><div class="sched-note">Thousands of cherry trees in the grounds. The castle dates to 1583. Stunning backdrop for final Japan photos!</div></div></div>
-        <div class="sched-item"><div class="sched-time">~11:00 AM</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Kuromon Ichiba Market</div><div class="sched-note">Osaka's kitchen. Fresh tofu, veggie street food, last chance for Japanese snacks to bring home.</div></div></div>
-        <div class="sched-item"><div class="sched-time">~1:00 PM</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">Shinsaibashi Shopping</div><div class="sched-note">Final souvenirs, fashion, Japanese cosmetics</div></div></div>
-        <div class="sched-item"><div class="sched-time">12:40 PM</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">✈️ Depart Osaka → Tokyo Haneda</div><div class="sched-note">Arrives 1:55 PM at Haneda</div></div></div>
-        <div class="sched-item"><div class="sched-time">4:20 PM</div><div class="sched-dot" style="background:#e65100;"></div><div class="sched-content"><div class="sched-title">✈️ Depart Tokyo Haneda → SFO</div><div class="sched-note">Arrives SFO 9:45 AM (same day — you gain hours crossing the date line!)</div></div></div>
-      </div>
-      <div class="tip-box warn"><span class="tip-icon">⏰</span><div>Tokyo Monorail: Hamamatsucho → Haneda takes 40–50 min. Build in plenty of buffer for the Osaka→Haneda→SFO connection.</div></div>
-    </div>
-  </div>
 </div>
 
 <script>
-function showTab(name, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
-  el.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-function toggleDay(id) {
-  const card = document.getElementById(id);
-  card.classList.toggle('open');
-  if (card.classList.contains('open')) {
-    setTimeout(() => card.scrollIntoView({behavior: 'smooth', block: 'nearest'}), 100);
-  }
-}
-
-function openModal(id) {
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function closeModalOnBg(e, id) {
-  if (e.target === document.getElementById(id)) closeModal(id);
-}
-
-// Auto-open today's day card
-window.addEventListener('load', () => {
+(function() {
   const today = new Date();
-  const tripStart = new Date('2026-03-27');
-  const dayNum = Math.floor((today - tripStart) / 86400000) + 1;
-  if (dayNum >= 1 && dayNum <= 12) {
-    const card = document.getElementById('day' + dayNum);
-    if (card) {
-      card.classList.add('open');
-      setTimeout(() => card.scrollIntoView({behavior: 'smooth', block: 'center'}), 400);
+  const start = new Date('2026-03-26');
+  const end = new Date('2026-04-07');
+  const ms = 86400000;
+  const daysUntil = Math.ceil((start - today) / ms);
+  const el = document.getElementById('japan-status');
+  const txt = document.getElementById('japan-status-text');
+  const card = document.querySelector('.dest-card.active-trip');
+  if (today < start) {
+    if (daysUntil > 30) {
+      el.className = 'dest-status status-planned';
+      txt.textContent = 'Planned';
+    } else if (daysUntil <= 1) {
+      el.className = 'dest-status status-upcoming';
+      txt.textContent = 'Departing soon!';
+    } else {
+      el.className = 'dest-status status-upcoming';
+      txt.textContent = `Upcoming — ${daysUntil} days away`;
     }
+  } else if (today <= end) {
+    el.className = 'dest-status status-active';
+    const day = Math.floor((today - start) / ms) + 1;
+    txt.textContent = `Active — Day ${day} of 12`;
+  } else {
+    el.className = 'dest-status status-completed';
+    txt.textContent = 'Completed · Spring 2026';
+    if (card) card.classList.remove('active-trip');
   }
-});
+})();
 </script>
 </body>
 </html>
